@@ -3,6 +3,12 @@ a mail organizer by auto labeling your emails.
 
 Github: https://github.com/verkyyi/gmail_organizer
 
+## Teams
+
+Jacky Zhang
+Josh Zhu
+Charlie Han
+Lianghui Yi
 
 
 **Product User Stories**
@@ -69,26 +75,6 @@ Professor
 
 4. **Advanced Features:** Consider the implementation of topic modeling for the creation of non-predefined labels as a future enhancement.
 
-**Todos**
-
-\- [ ] Assign team members to each arrangement category.
-
-\- [ ] Establish timelines for the completion of each milestone.
-
-\- [ ] Set up regular check-ins to monitor progress on arrangements and milestones.
-
-\- [ ] Determine the resources needed for the Gmail integration and role classification features.
-
-\- [ ] Allocate tasks for the creation of the presentation slides.
-
-\- [ ] Schedule a mock presentation for internal review before the final presentation date.
-
-\- [ ] Plan for a feedback mechanism post-software testing to gather insights for improvement.
-
-Each point should be discussed and agreed upon by your team to ensure everyone is on the same page and knows their responsibilities. Good luck with your project!
-
-
-
 Verky: Gmail Integration
 
 Jacky： Student/ Professor classifer
@@ -112,6 +98,27 @@ Charlie: Labels creations using rules
 ​		-Label Classifying Using Model Training
 
 
+
+**Todos**
+
+\- [ ] Assign team members to each arrangement category.
+
+\- [ ] Establish timelines for the completion of each milestone.
+
+\- [ ] Set up regular check-ins to monitor progress on arrangements and milestones.
+
+\- [ ] Determine the resources needed for the Gmail integration and role classification features.
+
+\- [ ] Allocate tasks for the creation of the presentation slides.
+
+\- [ ] Schedule a mock presentation for internal review before the final presentation date.
+
+\- [ ] Plan for a feedback mechanism post-software testing to gather insights for improvement.
+
+Each point should be discussed and agreed upon by your team to ensure everyone is on the same page and knows their responsibilities. Good luck with your project!
+
+
+### DataSet Format
 
 To:
 
