@@ -1,133 +1,100 @@
-# gmail_organizer
-a mail organizer by auto labeling your emails.
+# Mail Organizer
 
-Github: https://github.com/verkyyi/gmail_organizer
+a mail organizer by auto labeling your emails specially designed for DSAN program students and professors.
 
 ## Teams
 
-Jacky Zhang
-Josh Zhu
-Charlie Han
-Lianghui Yi
+Jacky Zhang, Josh Zhu, Charlie Han, Lianghui Yi
 
+## Product User Stories
 
-**Product User Stories**
+- Single Installation: The product should be accessible with a one-time installation as either a browser extension or a Google apps extension. No further complicated setup should be required.
 
-1. **Single Installation:** The product should be accessible with a one-time installation as either a browser extension or a Google apps extension. No further complicated setup should be required.
-2. **Universal Benefit:** The tool is designed to cater to the needs of both professors and students, enhancing their email management experience.
-3. **Email Categorization:**
+- Universal Benefit: The tool is designed to cater to the needs of both professors and students, enhancing their email management experience.
 
-  \- **Course-Related Emails:** Automatically categorize course-related communications into a designated folder.
+- Role Recognition: Implement automatic user role detection to personalize the experience without requiring manual user settings.
 
-  \- **Campus Events:** Aggregate emails related to campus events into a separate folder for easy access.
+- Predefined Labels: Offer predefined labels upon installation tailored to the roles of students and professors and existing email data.
 
-4. **Predefined Folders:** Offer predefined folders upon installation tailored to the roles of students and professors.
-5. **Content Preview:** Enable the preview of the first one or two sentences of an email to assist in accurate classification.
-6. **Role Recognition:** Implement automatic user role detection to personalize the experience without requiring manual user settings.
-7. **Label Management:**
+- Automatical Labeling: Labelling existing emails automatically upon first run and new emails as they arrive.
 
-  \- **Predefined Labels:** Provide a list of predefined labels suitable for the common needs of students and professors.
+- (Deferred) Labels Extraction: Extract labels from existing emails to expand the predefined label pool.
 
-  \- **Custom Labels:** Allow users to create their own labels which the system will automatically utilize in classifying emails.
+- (Deferred) Custom Labels: Allow users to create their own labels which the system will automatically utilize in classifying emails.
 
-8. **AI Expansion:** Leverage GPT technology to expand existing labels, enhancing the system’s ability to classify emails effectively.
+- (Deferred) Label Expansion: Leverage GPT technology to expand existing labels to a bunch of representations, enhancing the system’s ability to classify emails effectively also provide privacy protection without sending any email content to GPT.
 
-**Predefined Labels**
+## Milestones
 
-Students
+1. 11/18 Product Target Confirmation: Define the specific goals and functionalities of the product.
+2. 11/20 Mail Data Acquisition: Secure a dataset of emails for training and testing the classification algorithms.
+3. 11/24 Software Development: Code the first version of the software.
+4. 11/25 Testing Phase: Test the software for bugs, user experience, and performance.  
+5. 11/28 Presentation Preparation: Finalize the presentation slides for the project. 
+6. 11/30 Presentation Date: Set a date for the project presentation. 
+7. 12/05 Final Delivery: Establish a deadline for the final software deliverable. 
+8. 12/05 Future Planning: Outline steps for future improvements and features.
 
--Events
+## Team Arrangements
 
-**-Course (5100/5200)**
+- Gmail Integration: Develop and test the integration with Gmail.
+  - Verky
+- Data Collection and Labeling: Collect and clean the dataset for training and testing the classification algorithms.
+  - Josh
+- Project Skeleton: Create the project skeleton and organize the codebase.
+  - Verky
+- Role Classification: Create an algorithm to classify users as students or professors.
+  - Jacky
+- Predefined Label Pools and Account Label Matching: Assign labels to account based on role and history.
+  - Charlie
+- Core Labels Classifier: Create a classifier to assign labels to emails.
+  - **See Predefined Labels**
+- Testing: Test the software for bugs, user experience, and performance.
+  - Maybe Jacky
+- Presentation: Prepare the presentation slides for the project.
+  - Maybe Charlie
+- Advanced Features: Consider the implementation of topic modeling for the creation of non-predefined labels as a future enhancement.
+  - TBD
 
--NewsLetter
+## Predefined Labels
 
-Professor
+- Course-Related Emails: Automatically categorize course-related communications into a designated folder. For example, DSAN 5000, DSAN 5100, etc.
+  - Josh
+- Campus Events: Aggregate emails related to campus events into a separate folder for easy access.
+  - Jacky
+- HR: For professor and students with on-campus jobs, the system will automatically categorize HR-related emails into this label.
+  - Charlie
+- Zoom/Appointments: The system will automatically categorize emails related to Zoom meetings and appointments into this label.
+  - Verky
+- Co-faculty: The system will automatically categorize emails from co-workers into this label, which is only available for professors.
+  - TBD
+- NewsLetter: The system will automatically categorize emails from newsletters into this label.
+  - TBD
+- Professor: The system will automatically categorize emails from professors into this label. This label is only available for students.
+  - TBD
+- Current Students: The system will automatically categorize emails from current students into this label. This label is only available for professors.
+  - TBD
+- Prospective Students: The system will automatically categorize emails from prospective students into this label. This label is only available for professors.
+  - TBD
 
--Current Students
+## Tech Implementation
 
--Prospective Students.
+This software mainly consists of three parts: Gmail integration, role classification, and labeling system.
 
--HR
+- Google Apps Script(Javascript): The system will be implemented as a Google Apps Script to integrate with Gmail.
+- Mail Classification Service(Python): The system will utilize a classification service to classify emails into predefined labels. The service will be implemented in Python. 
+- Role Classification Model(Python): The system will utilize a machine learning model to classify users as students or professors. The model will be implemented in Python.
 
--.....
+## DataSet Format Sample
 
-**Milestones**
+All exported mail should be stored as tsv file for better analysis.
 
-1. **Product Target Confirmation:** Define the specific goals and functionalities of the product.
-2. **Mail Data Acquisition:** Secure a dataset of emails for training and testing the classification algorithms.
-3. **Software Development:** Code the first version of the software.
-4. **Testing Phase:** Test the software for bugs, user experience, and performance.  11/25
-5. **Presentation Preparation:** Finalize the presentation slides for the project. 11/28
-6. **Presentation Date:** Set a date for the project presentation. 11/30
-7. **Final Delivery:** Establish a deadline for the final software deliverable. 12/5
-8. **Future Planning:** Outline steps for future improvements and features.
+### Export Script
 
-**Arrangements**
+Should provide a Apps Script to export all mail in a specific label to a tsv file.
 
-1. **Gmail Integration:** Develop and test the integration with Gmail.
-2. **Role Classification:** Create an algorithm to classify users as students or professors.
-3. **Labeling System:**
+### Mail Format
 
-  \- **Students:** Design a labeling system catered to student use-cases.
-
-  \- **Professors:** Create a labeling system for professor-specific email management.
-
-4. **Advanced Features:** Consider the implementation of topic modeling for the creation of non-predefined labels as a future enhancement.
-
-Verky: Gmail Integration
-
-Jacky： Student/ Professor classifer
-
-Charlie: Labels creations using rules
-
-​	Label Pools
-
-:Label Classifer
-
-​		-Events: Jacky
-
-​		-HR: Charlie
-
-​		-Course: Josh
-
-​		-Zoom/Appointments: Verky
-
-​		-Label Classifying using Rules
-
-​		-Label Classifying Using Model Training
-
-
-
-**Todos**
-
-\- [ ] Assign team members to each arrangement category.
-
-\- [ ] Establish timelines for the completion of each milestone.
-
-\- [ ] Set up regular check-ins to monitor progress on arrangements and milestones.
-
-\- [ ] Determine the resources needed for the Gmail integration and role classification features.
-
-\- [ ] Allocate tasks for the creation of the presentation slides.
-
-\- [ ] Schedule a mock presentation for internal review before the final presentation date.
-
-\- [ ] Plan for a feedback mechanism post-software testing to gather insights for improvement.
-
-Each point should be discussed and agreed upon by your team to ensure everyone is on the same page and knows their responsibilities. Good luck with your project!
-
-
-### DataSet Format
-
-To:
-
-From:
-
-Subject:
-
-Body:
-
-....
-
-Date:
+|---|Account|From|To|Subject|Body|Label|Role|
+|---|-------|----|--|-------|----|-----|----|
+|1  |ly297@georgetown.edu|Verky Yi <ly297@georgetown.edu>| Charlie Han <charlie@georgetown.edu>|DSAN 5000|Hi, Charlie, I am Verky, a student in DSAN 5000. I am writing to ask about the final project. Can you give me some advice?|Course|Student|
