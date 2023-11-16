@@ -12,25 +12,15 @@ function write_tsv_to_drive(tsv_string = 'Test'){
  */
 function getSelf() {
   var email = Session.getActiveUser().getEmail()
-  var name = Session.getActiveUser().getUsername()
-  Logger.log(email)
-  return email
-  try {
-    // Get own user's profile using People.getBatchGet() method
-    const people = People.People.getBatchGet({
-      resourceNames: ['people/me'],
-      personFields: 'names,emailAddresses'
-      // Use other query parameter here if needed
-    });
-    console.log('Myself: %s', JSON.stringify(people, null, 2));
-  } catch (err) {
-    // TODO (developer) -Handle exception
-    console.log('Failed to get own profile with an error %s', err.message);
-  }
+  myself = People.People.get('people/me',{
+     personFields: 'names'
+  })
+  fullName = myself.names[0].displayName
+  return [fullName,email]
 }
 
 
-function export_mails_to_tsv(latest_count = 1) {
+function export_mails_to_tsv(latest_count = 100) {
   /**
    * A Apps Script export latest inbox mails to tsv in Google Drive
    * Accept latest_count as argument to limit the total output mails.
@@ -44,13 +34,7 @@ function export_mails_to_tsv(latest_count = 1) {
    * - account_role: can be blank
    * - mail_labels: can be blank
    */
-  var account_name = GmailApp.getAliases()[0];
-  var account_mail_address = GmailApp.getAliases()[0];
-  const people = People.People.getBatchGet({
-      resourceNames: ['people/me'],
-      personFields: 'names,emailAddresses'
-      // Use other query parameter here if needed
-    });
+  var [account_name,account_mail_address] = getSelf()
   var threads = GmailApp.getInboxThreads(0, latest_count);
   var result = [];
   // Add Headers
