@@ -56,6 +56,8 @@ Jacky Zhang, Josh Zhu, Charlie Han, Lianghui Yi
 - Advanced Features: Consider the implementation of topic modeling for the creation of non-predefined labels as a future enhancement.
   - TBD
 
+***Note:*** *The team arrangement is subject to change as the project progresses. Team members can use `Issue` tools on Github to track or discuss detailed subtask.*
+
 ## Predefined Labels
 
 - Course-Related Emails: Automatically categorize course-related communications into a designated folder. For example, DSAN 5000, DSAN 5100, etc.
