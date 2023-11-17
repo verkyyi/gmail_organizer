@@ -1,3 +1,20 @@
+function do_export() {
+  /**
+   * A Apps Script export latest inbox mails to tsv in Google Drive
+   * Accept latest_count as argument to limit the total output mails.
+   * 
+   * predefinedLabels: the labels you want to export, can be a list of labels, for example ['HR','']
+   * Leave it empty to export all threads without label filtering
+   * role: the role of the account, can be either 'Student' or 'Professor'
+   * threads_limit_num: the number of threads you want to export, default to 100
+   * 
+   */
+  predefinedLabels = [] // Default to empty list, which means export all threads without label filtering
+  role = 'Student'
+  threads_limit_num = 100
+  export_mails_to_tsv(threads_limit_num, predefinedLabels, role)
+}
+
 function write_tsv_to_drive(tsv_string = 'Test'){
   Logger.log(tsv_string)
   folder_name = "gamail_orgnaizer"
@@ -19,8 +36,7 @@ function getSelf() {
   return [fullName,email]
 }
 
-
-function export_mails_to_tsv(latest_count = 100) {
+function export_mails_to_tsv(limit = 100, label_filter = predefinedLabels, role = 'Student') {
   /**
    * A Apps Script export latest inbox mails to tsv in Google Drive
    * Accept latest_count as argument to limit the total output mails.
@@ -34,13 +50,23 @@ function export_mails_to_tsv(latest_count = 100) {
    * - account_role: can be blank
    * - mail_labels: can be blank
    */
-  var [account_name,account_mail_address] = getSelf()
-  var threads = GmailApp.getInboxThreads(0, latest_count);
+  var [account_name, account_mail_address] = getSelf() // Get account name and mail address
+  // compose searching string by joining label_filter with 'label:' then join thoes strings by '|'
+  var searching = label_filter.map(function (label) {
+    return 'label:' + label
+  }).join('|');
+  var threads = GmailApp.search(searching, 0, limit);
   var result = [];
   // Add Headers
   var headers = ['account_name', 'account_mail_address', 'receiver', 'sender', 'subject', 'content', 'account_role', 'mail_labels'];
   result.push(headers.join('\t'));
   for (var i = 0; i < threads.length; i++) {
+    var labels = threads[i].getLabels();
+    // convert labels to string
+    var labels_strings = [];
+    for (var j = 0; j < labels.length; j++) {
+      labels_strings.push(labels[j].getName());
+    }
     var messages = threads[i].getMessages();
     for (var j = 0; j < messages.length; j++) {
       var message = messages[j];
@@ -50,8 +76,8 @@ function export_mails_to_tsv(latest_count = 100) {
       var content = message.getPlainBody();
       // Escape special characters within content using utilities
       content = Utilities.base64Encode(content);
-      var account_role = 'NA';
-      var mail_labels = 'NA';
+      var account_role = role;
+      var mail_labels = labels_strings;
       var row = [account_name, account_mail_address, receiver, sender, subject, content, account_role, mail_labels];
       result.push(row.join('\t'));
     }
