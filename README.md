@@ -87,10 +87,10 @@ This software mainly consists of three parts: Gmail integration, role classifica
 - Mail Classification Service(Python): The system will utilize a classification service to classify emails into predefined labels. The service will be implemented in Python. 
 - Role Classification Model(Python): The system will utilize a machine learning model to classify users as students or professors. The model will be implemented in Python.
 - Database: The system will utilize a database to store the result of the role classification model. We might use the feature of Google Apps Script to store the result in the cache.
-  - Cache Service: https://developers.google.com/apps-script/reference/cache/cache-service
-    (Maximum cache retention time is 6 hours)
   - Properties Service: https://developers.google.com/apps-script/reference/properties/properties-service
     (Maximum cache retention time is 6 months)
+
+*Note: To avoid using labels already used by users, we will prefix all auto-generated labels with `Auto-`. For example, `Auto-DSAN 5000`. Also by doing this, we only need to store the role within property service.*
 
 Workflow:
 
