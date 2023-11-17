@@ -86,6 +86,59 @@ This software mainly consists of three parts: Gmail integration, role classifica
 - Google Apps Script(Javascript): The system will be implemented as a Google Apps Script to integrate with Gmail.
 - Mail Classification Service(Python): The system will utilize a classification service to classify emails into predefined labels. The service will be implemented in Python. 
 - Role Classification Model(Python): The system will utilize a machine learning model to classify users as students or professors. The model will be implemented in Python.
+- Database: The system will utilize a database to store the result of the role classification model. We might use the feature of Google Apps Script to store the result in the cache.
+  - Cache Service: https://developers.google.com/apps-script/reference/cache/cache-service
+    (Maximum cache retention time is 6 hours)
+  - Properties Service: https://developers.google.com/apps-script/reference/properties/properties-service
+    (Maximum cache retention time is 6 months)
+
+Workflow:
+
+1. The system will be deployed as a Google Apps Script.
+2. The system will be triggered periodically to label new emails.
+3. During each run, the system will first classify users as students or professors by the role classification model and assign corresponding labels to their accounts. To save future computation, the system will cache the result in the database. We might use the feature of Google Apps Script to store the result in the cache.
+4. The system will then classify emails into predefined labels by the classification service. The service will utilize the cached result to classify emails. During the process, besides the mail itself, the script will also pass predefined labels and account role labels to the service. The service will utilize the predefined labels and account labels to classify emails. Also to avoid repeated classification on the same mail, the system will cache the current runtime timestamp and the mail id in the database. The service will check the cache before classifying the mail.
+5. The system will then add labels to the mail.
+
+
+### Deployment and How to Use
+
+In our first version of the software, we will deploy the system as a Google Apps Script. 
+
+**Frontend**
+
+#### Possible Solution: Shared Script
+
+We will share the script to all users within the Georgetown domain. Now users within this domain can copy the script to their own Google Drive and setup a trigger to run the script periodically.
+Since the execution of the script needs some computing resources, we need to confirm the whole proces.
+
+**As to demo as soon as possible, we will use this solution during our presentation.**
+
+Complexity: Low
+
+![Alt text](./readme_imgs/georgetown_access.png)
+
+#### Possible Solution: Internal Webapps
+
+We will deploy the system as a webapp within the Georgetown domain. Now users within this domain can access the webapp and run the script to label their mail.
+
+We need to implement the scheduling function to run the script periodically, which is included by Google Apps Script. We may reuse this feature from Google Apps Script, or else we have to implement it by ourselves.
+
+Complexity: Medium
+
+#### Possible Solution: Worskpace Add-on or Chrome Extension
+
+We will deploy the system as a Workspace Add-on or Chrome Extension. Now users can install the add-on or extension and run the script to label their mail.
+
+Complexity: High
+
+**Backend**
+
+For the python classification service, we will deploy it as a Google Cloud Function. The function will be triggered by the Google Apps Script.
+
+To be efficient, we won't use any database to store the result of the classification service. Instead, we will use the feature of Google Apps Script to store the result in the cache.
+
+And directly use the cache to add labels to the mail. 
 
 ## DataSet Format Sample
 
