@@ -123,3 +123,24 @@ You can find the exported filed download url in the log of the script.
 |---|Account|From|To|Subject|Body|Label|Role|
 |---|-------|----|--|-------|----|-----|----|
 |1  |ly297@georgetown.edu|Verky Yi <ly297@georgetown.edu>| Charlie Han <charlie@georgetown.edu>|DSAN 5000|Hi, Charlie, I am Verky, a student in DSAN 5000. I am writing to ask about the final project. Can you give me some advice?|Course|Student|
+
+
+### Import Script
+
+Should provide a Python script to import the exported tsv file to the database.
+
+Path: ./utils/data_loader.py
+
+This file provide a utility function to import the exported tsv file to a Pandas DataFrame.
+
+Since we encode the mail body in base64, the function will decode the body before return the DataFrame.
+
+Example: 
+
+```python
+from utils.data_loader import get_mail_dataframe
+# file_path is the path of the exported tsv file, you only need to include the file name and extension.
+# default is to find that file within the data folder.
+file_path = 'student_inbox_ly297.tsv'
+mails = get_mail_dataframe(file_path)
+```
