@@ -95,6 +95,14 @@ All exported mail should be stored as tsv file for better analysis.
 
 Should provide a Apps Script to export all mail in a specific label to a tsv file.
 
+Apps Script:
+
+https://script.google.com/u/1/home/projects/1s55R9e9Qb6pLRTqyRH4oaDmMeM2mDYsRIfBmZk1gxq0HhS3Y4dJeDtmf
+
+The above script is currently available for all users within the Georgetown domain. It will export all mail in the `Course` label to a tsv file.
+
+You can find the exported filed download url in the log of the script.
+
 ### Mail Format
 
 |---|Account|From|To|Subject|Body|Label|Role|
