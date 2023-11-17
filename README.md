@@ -103,6 +103,21 @@ The above script is currently available for all users within the Georgetown doma
 
 You can find the exported filed download url in the log of the script.
 
+#### Steps
+
+1. Click the above apps script link.
+
+2. On the left `Files` pannel, choose `mail_export.gs` file.
+  ![Alt text](./readme_imgs/image-1.png)
+3. Close to the Debug button, click the `Select function` dropdown menu, choose `export_mails_tsv`.
+  ![Alt text](./readme_imgs/image.png)
+
+4. Click the Run button to run the script.
+
+5. Check the log of the script, you will find the download url of the exported file.
+  ![Alt text](./readme_imgs/image-2.png)
+
+
 ### Mail Format
 
 |---|Account|From|To|Subject|Body|Label|Role|
