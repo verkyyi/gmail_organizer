@@ -19,7 +19,17 @@
     ```bash
     clasp clone "1s55R9e9Qb6pLRTqyRH4oaDmMeM2mDYsRIfBmZk1gxq0HhS3Y4dJeDtmf" --rootDir ./
     ```
+4. Push changes
 
+    ```bash
+    clasp push
+    ```
+5. Deploy
+
+    ```bash
+    clasp deploy
+    ```
+    
 # References
 
 https://github.com/google/clasp/
