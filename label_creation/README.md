@@ -20,11 +20,11 @@ pip install -r requirements.txt
 
 # Testing
 
-functions-framework-python --target hello_http --debug
+functions-framework-python --target label_creation --debug
 
 # Deploying
 
-gcloud functions deploy label_classifier \
+gcloud functions deploy label_creation \
   --gen2 \
   --runtime=python312 \
   --region=us-east4 \
@@ -36,7 +36,7 @@ gcloud functions deploy label_classifier \
 # Testing
 
 ## Obtain the URL of the function
-gcloud functions describe label_classifier \
+gcloud functions describe label_creation \
   --region us-east4
 
 ## Test Data
@@ -49,11 +49,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
     "testlabel2"
   ],
   "mail": {
-    "account": "ly297@georgetown.edu",
-    "from": "Lianghui Yi<ly297@georgetown.edu>",
-    "to": "Charlie Han <charlie@georgetown.edu>",    
-    "subject": "Hello",
-    "body": "Hello World!"
+    "subject": ""
   }
 }' [URL]
 ```

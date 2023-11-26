@@ -13,7 +13,6 @@ def hello_http(request):
         <https://flask.palletsprojects.com/en/1.1.x/api/#flask.make_response>.
     """
     request_json = request.get_json(silent=True)
-    request_args = request.args
 
     if request_json and 'role' in request_json:
         role = request_json['role']
@@ -23,6 +22,9 @@ def hello_http(request):
         mail = request_json['mail']
     else:
         mail = {
+            'subject': 'test',
+            'body': 'test',
+            'from': 'test',
         }
     if request_json and 'labels_pool' in request_json:
         labels_pool = request_json['labels_pool']

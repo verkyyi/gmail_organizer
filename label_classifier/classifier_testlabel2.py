@@ -5,4 +5,7 @@ def classify_email(role, email):
     role: the role of the user
     email: the email to be classified, which is a panda row.
     """
+    # If Subject contains 'Treats', classify as 'TESTLABEL2'
+    if 'Treats'.lower() in email['subject'].lower():
+        return True
     return False
