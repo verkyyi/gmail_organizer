@@ -90,12 +90,21 @@ function create_labels(role, mail_history) {
   /**
    * Create auto labels based on role and threads history.
    */
-  // Get PlainBody of all threads.
-  // var plainBodies = mail_history.map(function (thread) {
-  //   return thread.getMessages()[0].getPlainBody();
-  // });
+  fileId = export_threads_to_tsv(mail_history);
+  // Prepare data for cloud function.
+  var data = {
+    'role': role,
+    'fileId': fileId,
+  };
+  var options = {
+    'method': 'post',
+    'contentType': 'application/json',
+    // Convert the JavaScript object to a JSON string.
+    'payload': JSON.stringify(data)
+  };
+  var endPoint = 'https://us-east4-cryptic-skyline-399006.cloudfunctions.net/label_creation'
   // Create labels on account based on labels_strings.
-  var labels = UrlFetchApp.fetch('https://us-east4-cryptic-skyline-399006.cloudfunctions.net/label_creation').getContentText().split(',');
+  var labels = UrlFetchApp.fetch(endPoint, options).getContentText().split(',');
   for (var i = 0; i < labels.length; i++) {
     var labelStr = labels[i];
     getOrCreateUserLabel(labelStr);
