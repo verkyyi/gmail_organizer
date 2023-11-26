@@ -164,9 +164,12 @@ function classifier(role, from, subject, body, labels_pool) {
   // Make a POST request with a JSON payload.
   var data = {
     'role': role,
-    'from': from,
-    'subject': subject,
-    'body': body,
+    'mail': {
+      'from': from,
+      'to': 'me', // hardcode to 'me
+      'subject': subject,
+      'body': body,
+    },
     'labels_pool': labels_pool,
   };
   var options = {
