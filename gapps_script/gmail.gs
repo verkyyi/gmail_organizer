@@ -230,7 +230,7 @@ function roleClassifier(mail_history) {
     // Convert the JavaScript object to a JSON string.
     'payload' : JSON.stringify(data)
   };
-  var res = UrlFetchApp.fetch('https://us-east4-cryptic-skyline-399006.cloudfunctions.net/role_classifer', options);
+  var res = UrlFetchApp.fetch('https://us-east4-cryptic-skyline-399006.cloudfunctions.net/role_classifier', options);
   var body = res.getContentText();
   return body;
 }
