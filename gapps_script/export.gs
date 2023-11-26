@@ -19,8 +19,10 @@ function write_tsv_to_drive(tsv_string = 'Test'){
   Logger.log(tsv_string)
   folder_name = "gamail_orgnaizer"
   var file = DriveApp.createFile('export.tsv', tsv_string, MimeType.PLAIN_TEXT);
-  Logger.log('File ID: ' + file.getId());
+  fileId = file.getId();
+  Logger.log('File ID: ' + fileId);
   Logger.log(file.getDownloadUrl())
+  return fileId
 }
 
 /**
@@ -36,30 +38,11 @@ function getSelf() {
   return [fullName,email]
 }
 
-function export_mails_to_tsv(limit = 100, label_filter = predefinedLabels, role = 'Student') {
+function threads_to_msg_list(threads, role = 'Student', account_name, account_mail_address) {
   /**
-   * A Apps Script export latest inbox mails to tsv in Google Drive
-   * Accept latest_count as argument to limit the total output mails.
-   * Columns including the following:
-   * - account_name
-   * - account_mail_address
-   * - receiver
-   * - sender
-   * - subject
-   * - content
-   * - account_role: can be blank
-   * - mail_labels: can be blank
+   * Convert threads to a list of messages
    */
-  var [account_name, account_mail_address] = getSelf() // Get account name and mail address
-  // compose searching string by joining label_filter with 'label:' then join thoes strings by '|'
-  var searching = label_filter.map(function (label) {
-    return 'label:' + label
-  }).join('|');
-  var threads = GmailApp.search(searching, 0, limit);
-  var result = [];
-  // Add Headers
-  var headers = ['account_name', 'account_mail_address', 'receiver', 'sender', 'subject', 'content', 'account_role', 'mail_labels'];
-  result.push(headers.join('\t'));
+  var messagesList = []
   for (var i = 0; i < threads.length; i++) {
     var labels = threads[i].getLabels();
     // convert labels to string
@@ -79,9 +62,48 @@ function export_mails_to_tsv(limit = 100, label_filter = predefinedLabels, role 
       var account_role = role;
       var mail_labels = labels_strings;
       var row = [account_name, account_mail_address, receiver, sender, subject, content, account_role, mail_labels];
-      result.push(row.join('\t'));
+      messagesList.push(row);
     }
   }
+  return messagesList;
+}
+
+function export_threads_to_tsv(threads){
+  var result = [];
+  // Add Headers
+  var headers = ['account_name', 'account_mail_address', 'receiver', 'sender', 'subject', 'content', 'account_role', 'mail_labels'];
+  result.push(headers.join('\t'));
+  var [account_name, account_mail_address] = getSelf() // Get account name and mail address
+  var role = getRole() // Get account role from UserProperties
+  messages = threads_to_msg_list(threads, role, account_name, account_mail_address)
+  // Convert each row to line separated by '\t' and add to result
+  messages.forEach(function (row) {
+    result.push(row.join('\t'));
+  });
   var output = result.join('\n');
-  write_tsv_to_drive(output)
+  fileId = write_tsv_to_drive(output);
+  return fileId;
+}
+
+function export_mails_to_tsv(limit = 100, label_filter = predefinedLabels) {
+  /**
+   * A Apps Script export latest inbox mails to tsv in Google Drive
+   * Accept latest_count as argument to limit the total output mails.
+   * Columns including the following:
+   * - account_name
+   * - account_mail_address
+   * - receiver
+   * - sender
+   * - subject
+   * - content
+   * - account_role: can be blank
+   * - mail_labels: can be blank
+   */
+  // compose searching string by joining label_filter with 'label:' then join thoes strings by '|'
+  var searching = label_filter.map(function (label) {
+    return 'label:' + label
+  }).join('|');
+  var threads = GmailApp.search(searching, 0, limit);
+  fileId = export_threads_to_tsv(threads);
+  return fileId;
 }

@@ -26,7 +26,7 @@ function labelAndLog(thread, labelStr) {
 function get_auto_labels() {
   /**
    * Get all auto labels from Gmail
-   * return: list of auto labels without 'AUTO_ ' prefix
+   * return: list of auto labels without 'AUTO_' prefix
    */
   var labels = GmailApp.getUserLabels();
   var auto_labels = labels.filter(function (label) {
@@ -44,7 +44,8 @@ function getLabelObject(label_string) {
    * label_string: label string
    * return: label object
    */
-  var label = GmailApp.getUserLabelByName('AUTO_ ' + label_string.toUpperCase());
+  var labelStr = 'AUTO_' + label_string.toUpperCase();
+  var label = GmailApp.getUserLabelByName(labelStr);
   return label;
 }
 
@@ -54,7 +55,7 @@ function createLabelObj(label_string) {
    * label_string: label string
    * return: label object
    */
-  var label = GmailApp.createLabel('AUTO_ ' + label_string.toUpperCase());
+  var label = GmailApp.createLabel('AUTO_' + label_string.toUpperCase());
   return label;
 }
 
@@ -65,23 +66,36 @@ function getOrCreateUserLabel(label_string) {
    * return: label object
    */
   var label = getLabelObject(label_string);
-  if (!label) {
+  // When label does not exist, create label.
+  if (label == null) {
     label = createLabelObj(label_string);
+    Logger.log('Label created: ' + label_string);
   }
   return label;
+}
+
+function getContentsFromThreads(threads) {
+  /**
+   * Get contents from threads.
+   * threads: Gmail threads
+   * return: list of contents
+   */
+  var contents = threads.map(function (thread) {
+    return thread.getMessages()[0].getPlainBody();
+  });
+  return contents;
 }
 
 function create_labels(role, mail_history) {
   /**
    * Create auto labels based on role and threads history.
    */
-  var labels = get_auto_labels(); // TODO: Replace with Cloud function.
   // Get PlainBody of all threads.
   // var plainBodies = mail_history.map(function (thread) {
   //   return thread.getMessages()[0].getPlainBody();
   // });
-  // TODO: Call the Cloud function to get labels.
   // Create labels on account based on labels_strings.
+  var labels = UrlFetchApp.fetch('https://us-east4-cryptic-skyline-399006.cloudfunctions.net/label_creation').getContentText().split(',');
   for (var i = 0; i < labels.length; i++) {
     var labelStr = labels[i];
     getOrCreateUserLabel(labelStr);
@@ -102,6 +116,17 @@ function add_labels(thread, mail_labels) {
   }
 }
 
+function getRole() {
+  /**
+   * Get user role.
+   * role: user role
+   * return: user role
+   */
+  var userProperties = PropertiesService.getUserProperties();
+  var role = userProperties.getProperty('role');
+  return role;
+}
+
 function get_user_config() {
   /**
    * Get user configuration.
@@ -110,7 +135,7 @@ function get_user_config() {
    * labels: auto labels
    */
   var userProperties = PropertiesService.getUserProperties();
-  var role = userProperties.getProperty('role');
+  var role = getRole();
   var lastRuntime = userProperties.getProperty('lastRuntime');
   var labels = get_auto_labels();
   return [role, lastRuntime, labels];
@@ -135,16 +160,25 @@ function classifier(role, from, subject, body, labels_pool) {
    * labels_pool: list of labels, e.g. ['HR', 'Canvas']
    */
   match_labels = [];
-  // Iterate through all labels.
-  for (var i = 0; i < labels_pool.length; i++) {
-    var label = labels_pool[i];
-    // If label is in subject, return label.
-    if (subject.toLowerCase().indexOf(label) > -1) {
-      match_labels.push(label);
-    }
-    // TODO: Call the binary Cloud function for the specific label.
-  }
-  return match_labels;
+  // Call cloud function using URLFetchApp.
+  // Make a POST request with a JSON payload.
+  var data = {
+    'role': role,
+    'from': from,
+    'subject': subject,
+    'body': body,
+    'labels_pool': labels_pool,
+  };
+  var options = {
+    'method' : 'post',
+    'contentType': 'application/json',
+    // Convert the JavaScript object to a JSON string.
+    'payload' : JSON.stringify(data)
+  };
+  var res = UrlFetchApp.fetch('https://us-east4-cryptic-skyline-399006.cloudfunctions.net/label_classifier', options);
+  var body = res.getContentText();
+  var labels = body.split(',');
+  return labels;
 }
 
 function labelThreads(threads, labels_pool, role) {
@@ -166,16 +200,39 @@ function labelThreads(threads, labels_pool, role) {
       // Call classifier function to get label.
       var labels = classifier(role, from, subject, body, labels_pool);
       // Add to mail labels if label is not null.
-      mail_labels.concat(labels);
+      mail_labels = mail_labels.concat(labels);
     }
+    Logger.log('Mail labels: ' + mail_labels + ' added to thread: ' + thread.getId());
     add_labels(thread, mail_labels);
   }
 }
 
 // Use this function to classify the role of the user.
 function roleClassifier(mail_history) {
-  var role = 'student';
-  return role;
+  /**
+   * Classifier function.
+   * mail_history: mail history
+   * return: user role
+   * 
+   * 1. Get all mail history
+   * 2. Save to Google Drive and get file ID.
+   * 3. Call Cloud function to get role passing file ID.
+   */
+  fileId = export_threads_to_tsv(mail_history);
+  // Call Google Cloud function to get role.
+  // Make a POST request with a JSON payload.
+  var data = {
+    'fileId': fileId,
+  };
+  var options = {
+    'method' : 'post',
+    'contentType': 'application/json',
+    // Convert the JavaScript object to a JSON string.
+    'payload' : JSON.stringify(data)
+  };
+  var res = UrlFetchApp.fetch('https://us-east4-cryptic-skyline-399006.cloudfunctions.net/role_classifer', options);
+  var body = res.getContentText();
+  return body;
 }
 
 function resetLastRuntime() {
@@ -199,7 +256,11 @@ function init_user_config() {
   // Create auto labels based on role and threads history.
   var labels = create_labels(role, mail_history);
   // Set last runtime to long time ago.
-  var lastRuntime = resetLastRuntime
+  var lastRuntime = resetLastRuntime()
+  Logger.log('Initializing user configuration.');
+  Logger.log('Role: ' + role);
+  Logger.log('Last runtime: ' + lastRuntime);
+  Logger.log('Labels: ' + labels);
   return [role, lastRuntime, labels];
 }
 
