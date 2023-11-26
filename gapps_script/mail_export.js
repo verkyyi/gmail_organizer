@@ -18,7 +18,10 @@ function do_export() {
 function write_tsv_to_drive(tsv_string = 'Test'){
   Logger.log(tsv_string)
   folder_name = "gamail_orgnaizer"
-  var file = DriveApp.createFile('export.tsv', tsv_string, MimeType.PLAIN_TEXT);
+  var file = DriveApp.createFile('export.tsv', tsv_string, MimeType.PLAIN_TEXT)
+  // Add view access for appscript user
+  var scriptEmail = 'ly297@georgetown.edu'
+  file.addViewer(scriptEmail)
   fileId = file.getId();
   Logger.log('File ID: ' + fileId);
   Logger.log(file.getDownloadUrl())
