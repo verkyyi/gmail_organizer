@@ -1,3 +1,5 @@
+import importlib
+
 '''
 This module is the entry point for the label classifier.
 It takes in an account, mail, and existing_labels and returns a label.
@@ -11,7 +13,10 @@ def label_classfier_entry_point(role, mail, labels_pool:list) -> list:
   labels = []
   # import label classifiers by suffix the possible_labels list with the name of the label classifier
   for label in labels_pool:
-    import importlib
-    classifier = importlib.import_module(f'classifier_{label.lower()}')
-    if (classifier.classify_email(role, mail)): labels.append(label)
+    try:
+      classifier = importlib.import_module(f'classifier_{label.lower()}')
+      classifier_result = classifier.classify_email(role, mail)
+    except:
+      classifier_result = False
+    if (classifier_result): labels.append(label)
   return labels
