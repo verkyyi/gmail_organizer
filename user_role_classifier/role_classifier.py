@@ -9,4 +9,5 @@ def classify_role(mail_history:pd.DataFrame)->str:
   @param mail_history: the mail history of the user
   @return: a role, could be 'student', 'professor'
   '''
+  print(mail_history.head())
   return 'student'

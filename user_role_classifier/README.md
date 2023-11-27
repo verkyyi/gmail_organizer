@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 # Testing
 
-functions-framework-python --target role_classifier --debug
+functions-framework-python --target hello_http --debug
 
 # Deploying
 
@@ -43,15 +43,8 @@ gcloud functions describe role_classifier \
 
 ```curl
 curl -X POST -H "Content-Type: application/json" -d '{
-  "role": "student",
-  "labels_pool": [
-    "testlabel1",
-    "testlabel2"
-  ],
-  "mail": {
-    "subject": ""
-  }
-}' [URL]
+  "fileId": "17KZoPvfYkNDVBprquNORIZsieAsEFrCH"
+}' localhost:8080
 ```
 
 # References

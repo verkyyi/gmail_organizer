@@ -12,6 +12,7 @@ def download_file(real_file_id):
   Load pre-authorized user credentials from the environment.
   TODO(developer) - See https://developers.google.com/identity
   for guides on implementing OAuth2 for the application.
+  Reference: https://medium.com/@matheodaly.md/using-google-drive-api-with-python-and-a-service-account-d6ae1f6456c2
   """
 
   scope = ['https://www.googleapis.com/auth/drive']

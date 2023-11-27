@@ -1,10 +1,7 @@
 import functions_framework
-# import for Google Drive API
-from googleapiclient.discovery import build
-from google.oauth2 import service_account
-import io
-from googleapiclient.http import MediaIoBaseDownload
-
+import drive_download
+import utils.data_loader
+import role_classifier
 
 @functions_framework.http
 def hello_http(request):
@@ -19,5 +16,7 @@ def hello_http(request):
     """
     request_json = request.get_json(silent=True)
     file_id = request_json['fileId']
-
-    return 'professor'
+    content = drive_download.download_file(real_file_id=file_id)
+    mail_history = utils.data_loader.get_mail_dataframe_from_string(content)
+    role = role_classifier.classify_role(mail_history)
+    return role
