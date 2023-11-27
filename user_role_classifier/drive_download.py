@@ -1,26 +1,29 @@
-import io
-
-import google.auth
+from google.oauth2 import service_account
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaIoBaseDownload
-
+import io,os
+from googleapiclient.errors import HttpError
 
 def download_file(real_file_id):
   """Downloads a file
   Args:
       real_file_id: ID of the file to download
   Returns : IO object with location.
-
   Load pre-authorized user credentials from the environment.
   TODO(developer) - See https://developers.google.com/identity
   for guides on implementing OAuth2 for the application.
   """
-  creds, _ = google.auth.default()
 
+  scope = ['https://www.googleapis.com/auth/drive']
+  current_dir = os.path.dirname(os.path.realpath(__file__)) 
+  service_account_json_key = './creds/cryptic-skyline-399006-4893d282f894.json'
+  service_account_json_key = os.path.join(current_dir, service_account_json_key)
+  credentials = service_account.Credentials.from_service_account_file(
+                                filename=service_account_json_key, 
+                                scopes=scope)
   try:
     # create drive api client
-    service = build("drive", "v3", credentials=creds)
+    service = build('drive', 'v3', credentials=credentials)
 
     file_id = real_file_id
 
@@ -36,9 +39,8 @@ def download_file(real_file_id):
   except HttpError as error:
     print(f"An error occurred: {error}")
     file = None
-
-  return file.getvalue()
-
+  content = file.getvalue().decode('utf-8')
+  return content
 
 if __name__ == "__main__":
-  download_file(real_file_id="1KuPmvGq8yoYgbfW74OENMCB5H0n_2Jm9")
+  download_file(real_file_id="15V_R2nKlyX_3xpGanckBl2aDGZtAJYui")
