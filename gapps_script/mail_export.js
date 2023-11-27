@@ -20,8 +20,6 @@ function write_tsv_to_drive(tsv_string = 'Test'){
   folder_name = "gamail_orgnaizer"
   var file = DriveApp.createFile('export.tsv', tsv_string, MimeType.PLAIN_TEXT)
   // Add view access for appscript user
-  var scriptEmail = 'ly297@georgetown.edu'
-  file.addViewer(scriptEmail)
   file.addViewer('cryptic-skyline-399006@appspot.gserviceaccount.com')
   file.addViewer('615698571364-compute@developer.gserviceaccount.com')
   fileId = file.getId();
