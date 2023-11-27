@@ -22,8 +22,8 @@ function write_tsv_to_drive(tsv_string = 'Test'){
   // Add view access for appscript user
   var scriptEmail = 'ly297@georgetown.edu'
   file.addViewer(scriptEmail)
-  file.addView('cryptic-skyline-399006@appspot.gserviceaccount.com')
-  file.addView('615698571364-compute@developer.gserviceaccount.com')
+  file.addViewer('cryptic-skyline-399006@appspot.gserviceaccount.com')
+  file.addViewer('615698571364-compute@developer.gserviceaccount.com')
   fileId = file.getId();
   Logger.log('File ID: ' + fileId);
   Logger.log(file.getDownloadUrl())
