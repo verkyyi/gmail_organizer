@@ -1,4 +1,8 @@
 import functions_framework
+import pandas as pd
+import utils.data_loader as data_loader
+import utils.drive_download as drive_download
+import labels_pools
 
 @functions_framework.http
 def hello_http(request):
@@ -12,6 +16,9 @@ def hello_http(request):
         <https://flask.palletsprojects.com/en/1.1.x/api/#flask.make_response>.
     """
     request_json = request.get_json(silent=True)
-    request_args = request.args
-
-    return 'testlabel1,testlabel2'
+    file_id = request_json['file_id']
+    role = request_json['role']
+    content = drive_download.download_file(file_id)
+    mail_history = data_loader.load_mail_history(content)
+    labels = labels_pools.assign_label_pool_for_account(role, mail_history)
+    return labels

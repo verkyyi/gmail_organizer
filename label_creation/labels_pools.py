@@ -25,6 +25,6 @@ def assign_label_pool_for_account(role:str, mail_history:pd.DataFrame)->list:
   extra_labels = PREDEFINED_LABELS_STUDENTS if role == 'student' else PREDEFINED_LABELS_PROFS
   possible_labels += extra_labels
   for label in possible_labels:
-    assigner = importlib.import_module(f'label_assigner.{label.lower()}')
+    assigner = importlib.import_module(f'label_assigner_{label.lower()}')
     if (assigner.assign(role, mail_history)): labels_pool.append(label)
   return labels_pool
