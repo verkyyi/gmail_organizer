@@ -21,6 +21,13 @@ def assign_label_pool_for_account(role:str, mail_history:pd.DataFrame)->list:
   for path in glob_path:
     module_name = path.stem
     assigner = importlib.import_module(module_name)
-    label = module_name.replace('label_assigner_', '')
-    if (assigner.assign(role, mail_history)): labels_pool.append(label.lower())
+    default_label = module_name.replace('label_assigner_', '').lower()
+    label_result = assigner.assign(role, mail_history)
+    if label_result: 
+      if isinstance(label_result, bool): # if the result is boolean, append the default label
+        labels_pool.append(default_label)
+      elif isinstance(label_result, list): # if the result is a list, extend the list
+        labels_pool.extend(map(lambda x: x.lower(), label_result))
+      else: # should be a string
+        labels_pool.append(label_result.lower())
   return labels_pool
