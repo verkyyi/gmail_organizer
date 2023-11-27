@@ -12,4 +12,5 @@ def assign(role:str, mail_history:pd.DataFrame)->bool:
   @param mail_history: the mail history of the user
   @return: a boolean
   '''
-  return True
+  if (role == 'professor'): return True
+  return False
