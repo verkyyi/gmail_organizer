@@ -86,11 +86,25 @@ function getContentsFromThreads(threads) {
   return contents;
 }
 
-function create_labels(role, mail_history) {
+function clean_labels() {
+  /**
+   * Clean all auto labels.
+   */
+  var labels = GmailApp.getUserLabels();
+  var auto_labels = labels.filter(function (label) {
+    return label.getName().indexOf('AUTO_') == 0;
+  });
+  for (var i = 0; i < auto_labels.length; i++) {
+    var label = auto_labels[i];
+    label.deleteLabel();
+  }
+}
+
+function create_labels(role, mail_history_file_id) {
   /**
    * Create auto labels based on role and threads history.
    */
-  fileId = export_threads_to_tsv(mail_history);
+  fileId = mail_history_file_id;
   // Prepare data for cloud function.
   var data = {
     'role': role,
@@ -189,6 +203,9 @@ function classifier(role, from, subject, body, labels_pool) {
   };
   var res = UrlFetchApp.fetch('https://us-east4-cryptic-skyline-399006.cloudfunctions.net/label_classifier', options);
   var body = res.getContentText();
+  if (body == '') {
+    return [];
+  }
   var labels = body.split(',');
   return labels;
 }
@@ -214,13 +231,16 @@ function labelThreads(threads, labels_pool, role) {
       // Add to mail labels if label is not null.
       mail_labels = mail_labels.concat(labels);
     }
+    if (mail_labels.length == 0) {
+      continue;
+    }
     Logger.log('Mail labels: ' + mail_labels + ' added to thread: ' + thread.getId());
     add_labels(thread, mail_labels);
   }
 }
 
 // Use this function to classify the role of the user.
-function roleClassifier(mail_history) {
+function roleClassifier(mail_history_file_id) {
   /**
    * Classifier function.
    * mail_history: mail history
@@ -230,11 +250,10 @@ function roleClassifier(mail_history) {
    * 2. Save to Google Drive and get file ID.
    * 3. Call Cloud function to get role passing file ID.
    */
-  fileId = export_threads_to_tsv(mail_history);
   // Call Google Cloud function to get role.
   // Make a POST request with a JSON payload.
   var data = {
-    'fileId': fileId,
+    'fileId': mail_history_file_id,
   };
   var options = {
     'method' : 'post',
@@ -262,11 +281,15 @@ function resetLastRuntime() {
 
 function init_user_config() {
   var mail_history = get_mail_history();
-  var role = roleClassifier(mail_history);
+  // Save mail history to Google Drive and get file ID.
+  var fileId = export_threads_to_tsv(mail_history);
+  var role = roleClassifier(fileId);
   var userProperties = PropertiesService.getUserProperties();
   userProperties.setProperty('role', role);
+  // Clean all auto labels. 
+  clean_labels();
   // Create auto labels based on role and threads history.
-  var labels = create_labels(role, mail_history);
+  var labels = create_labels(role, fileId);
   // Set last runtime to long time ago.
   var lastRuntime = resetLastRuntime()
   Logger.log('Initializing user configuration.');
