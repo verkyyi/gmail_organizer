@@ -5,4 +5,10 @@ def classify_email(role, email):
     role: the role of the user
     email: the email to be classified, which is a panda row.
     """
+    # If email content contains the word 'newsletter', then it is a newsletter. 
+    if 'newsletter' in email['subject'].lower():
+        return True
+    # if content contains the word 'unsubscribe', then it is a newsletter.
+    if 'unsubscribe' in email['body'].lower():
+        return True
     return False
