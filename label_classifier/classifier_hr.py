@@ -6,5 +6,7 @@ def classify_email(role, email):
     email: the email to be classified, which is a panda row.
     """
     if 'HR' in email['subject']: return True
+    # if sender is "georgetown@myworkday.com"
+    if 'georgetown@myworkday.com' in email['from'].lower(): return True
     # TODO: add more rules
     return False

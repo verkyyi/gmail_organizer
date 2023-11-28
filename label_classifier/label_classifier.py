@@ -17,6 +17,7 @@ def label_classfier_entry_point(role, mail, labels_pool:list) -> list:
       classifier = importlib.import_module(f'classifier_{label.lower()}')
       classifier_result = classifier.classify_email(role, mail)
     except:
-      classifier_result = False
+      classifier = importlib.import_module(f'classifier_default')
+      classifier_result = classifier.classify_email(label,role, mail)
     if (classifier_result): labels.append(label)
   return labels
