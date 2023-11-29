@@ -1,9 +1,96 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Gmail Organizer Debug Interface</title>
     <base target="_top">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        color: #333;
+      }
+      h1 {
+        color: #4a86e8;
+      }
+      #account_info {
+        background-color: #f3f3f3;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+      }
+      .output-container {
+        background-color: #e4d7f5;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+      }
+      .output-container p {
+        margin: 5px 0;
+      }
+    </style>
+    <script>
+      function onSuccess(userConfig) {
+        const [role, lastRuntime, labels] = userConfig;
+        var div = document.getElementById('output');
+        div.innerHTML = `<p><strong>Role:</strong> ${role}</p>
+                         <p><strong>Last Runtime:</strong> ${lastRuntime}</p>
+                         <p><strong>Assigned Label Pools:</strong> ${labels}</p>`;
+      }
+      function onFailure(error) {
+        var div = document.getElementById('output');
+        div.innerHTML = `<p>Error: ${error}</p>`;
+      }
+      google.script.run.withSuccessHandler(onSuccess)
+                       .withFailureHandler(onFailure)
+                       .getOrCreateUserConfig();
+      google.script.run.withSuccessHandler(function(label_res) {
+        var div = document.getElementById('labeling_output');
+        div.innerHTML = `<p>Labeling complete for ${label_res.length}.</p>`;
+        for (var i = 0; i < label_res.length; i++) {
+          var label = label_res[i];
+          const messageId = label[0]
+          const labels = label[1] // array of labels
+          div.innerHTML += `<p>Message Id: ${messageId}<br>Labels: ${labels}</p>`;
+        }
+      }).withFailureHandler(function(error) {
+        var div = document.getElementById('labeling_output');
+        div.innerHTML = `<p>Error: ${error}</p>`;
+      }).autoLabeler();
+    </script>
+    <link href="https://ssl.gstatic.com/docs/script/css/add-ons.css" rel="stylesheet">
   </head>
   <body>
-    Hello, World!
+    <h1>Gmail Organizer Debug Interface</h1>
+    <div id="account_info"> 
+      <?= Session.getActiveUser().getEmail() ?>
+    </div>
+    <div id="output" class="output-container">
+      Config loading...
+    </div>
+    <div id="label_stats" class="output-container">
+      <? const label_stats = getLabelStats(); ?>
+      <strong>Label Stats</strong>
+      <? for (var label in label_stats) { ?>
+        <p><?= label ?>: <?= label_stats[label] ?></p>  
+      <? } ?>
+    </div>
+    <div id="labeling_output" class="output-container">
+      Labeling...
+    </div>
+    <div id="trigger_output" class="output-container">
+      <? if(ScriptApp.getProjectTriggers().length == 1) { ?>
+        <input type="button" value="Disable Hourly Run" onclick="google.script.run.withSuccessHandler(function(res,thisObj){
+          thisObj.value = 'Enable Hourly Run';
+        }).withUserObject(this).switchTrigger()" />
+      <? } else { ?>
+        <input type="button" value="Enable Hourly Run" onclick="google.script.run.withSuccessHandler(function(res,thisObj){
+          thisObj.value = 'Disable Hourly Run';
+        }).withUserObject(this).switchTrigger()" />
+      <? } ?>
+    </div>
+    <div id ="support"  class="output-container">
+      <p>For support or contribute, please contact <a href="mailto:ly297@georgetown.edu">this address</a></p>
+      Github: <a href="https://github.com/verkyyi/gmail_organizer">gmail_organizer</a>
+    </div>
   </body>
 </html>

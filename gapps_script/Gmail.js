@@ -227,6 +227,7 @@ function labelThreads(threads, labels_pool, role) {
    * labels_pool: list of labels, e.g. ['HR', 'Canvas']
    * role: user role, e.g. 'student'
    */
+  var label_res = []
   for (var i = 0; i < threads.length; i++) {
     var thread = threads[i];
     var messages = thread.getMessages();
@@ -248,7 +249,9 @@ function labelThreads(threads, labels_pool, role) {
     }
     Logger.log('Mail labels: ' + mail_labels + ' added to thread: ' + thread.getId());
     add_labels(thread, mail_labels);
+    label_res.push([thread.getId(), mail_labels]);
   }
+  return label_res;
 }
 
 // Use this function to classify the role of the user.
@@ -371,10 +374,11 @@ function autoLabeler() {
   // Then, label the threads based on role.
   var threads = getUnreadThreadsAfter(lastRuntime.toString())
   Logger.log('Unlabeld Threads: ' + threads.length);
-  labelThreads(threads, labels, role)
+  const label_res = labelThreads(threads, labels, role)
   // Log runtime to user properties.
   Logger.log('Labeling completed.');
   tagLastRuntime()
+  return label_res;
 }
 
 function local_labeler() {
