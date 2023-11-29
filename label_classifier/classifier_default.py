@@ -19,7 +19,6 @@ def classify_email(label, role, email):
       module_name = path.stem
       if module_name == 'classifier_default': continue # skip self
       classifier = importlib.import_module(module_name)
-      label = module_name.replace('classifier_', '').lower()
       if 'classify_dynamic_email' in dir(classifier):
         classifier_result = classifier.classify_dynamic_email(label, role, email)
         if (classifier_result): return label # return the first label that matches
