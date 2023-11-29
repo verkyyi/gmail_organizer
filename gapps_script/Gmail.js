@@ -305,6 +305,8 @@ function init_user_config() {
   clean_labels();
   // Create auto labels based on role and threads history.
   var labels = create_labels(role, fileId);
+  // recycle the file
+  DriveApp.getFileById(fileId).setTrashed(true);
   // Set last runtime to long time ago.
   var lastRuntime = resetLastRuntime()
   Logger.log('Initializing user configuration.');
