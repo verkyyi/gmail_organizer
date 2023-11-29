@@ -182,7 +182,7 @@ function get_mail_history(start=0, end=100) {
   return threads;
 }
 
-function classifier(role, to, from, subject, body, labels_pool) {
+function classifier(role, self_address, to, from, subject, body, labels_pool) {
   /**
    * Classifier function.
    * role: user role, e.g. 'student'
@@ -201,6 +201,7 @@ function classifier(role, to, from, subject, body, labels_pool) {
       'to': to, // hardcode to 'me
       'subject': subject,
       'body': body,
+      'self_address': self_address,
     },
     'labels_pool': labels_pool,
   };
@@ -236,8 +237,9 @@ function labelThreads(threads, labels_pool, role) {
       const to = message.getTo()
       var subject = message.getSubject();
       var body = message.getPlainBody();
+      var self_address = Session.getActiveUser().getEmail();
       // Call classifier function to get label.
-      var labels = classifier(role, to, from, subject, body, labels_pool);
+      var labels = classifier(role, self_address, to, from, subject, body, labels_pool);
       // Add to mail labels if label is not null.
       mail_labels = mail_labels.concat(labels);
     }
