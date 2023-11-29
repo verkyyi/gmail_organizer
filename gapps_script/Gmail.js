@@ -329,7 +329,7 @@ function tagLastRuntime() {
   userProperties.setProperty('lastRuntime', lastRuntimeStr);
 }
 
-function getUnreadThreadsAfter(lastRuntime, isUnread=False, limit=100) {
+function getUnreadThreadsAfter(lastRuntime, isUnread=false, limit=100) {
   if (!lastRuntime) {
     // If lastRuntime is null, set to 0.
     lastRuntime = new Date('2023/11/01');
@@ -338,7 +338,7 @@ function getUnreadThreadsAfter(lastRuntime, isUnread=False, limit=100) {
   lastRuntime = new Date(lastRuntime);
   // Convert to epoch time seconds to suit Gmail search.
   lastRuntime = Math.floor(lastRuntime.getTime() / 1000);
-  var searchStr = "to:me after:${lastRuntime}" + (isUnread ? " is:unread" : "");
+  var searchStr = `to:me after:${lastRuntime}` + (isUnread ? " is:unread" : "");
   var threads = GmailApp.search(searchStr, 0, limit);
   return threads;
 }
