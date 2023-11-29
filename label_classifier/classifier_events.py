@@ -15,7 +15,7 @@ def classify_email(role, email):
     if 'rsvp' in email['from'].lower() or 'RSVP' in email['subject'].lower():
         return True
     # if 'RSVP' in content then label as events
-    if 'rsvp' in email['content'].lower():
+    if 'rsvp' in email['body'].lower():
         return True
     # if 'conference' in subject or 'conference' in from then label as events
     if 'conference' in email['from'].lower() or 'conference' in email['subject'].lower():
