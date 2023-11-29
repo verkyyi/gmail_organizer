@@ -17,7 +17,7 @@ def download_file(real_file_id):
 
   scope = ['https://www.googleapis.com/auth/drive']
   current_dir = os.path.dirname(os.path.realpath(__file__)) 
-  service_account_json_key = 'creds/cryptic-skyline-399006-4893d282f894.json'
+  service_account_json_key = 'creds/cred.json'
   service_account_json_key = os.path.join(current_dir, service_account_json_key)
   credentials = service_account.Credentials.from_service_account_file(
                                 filename=service_account_json_key, 
