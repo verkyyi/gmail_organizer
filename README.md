@@ -2,6 +2,14 @@
 
 a mail organizer by auto labeling your emails specially designed for DSAN program students and professors.
 
+## Links
+
+Production version:
+
+https://script.google.com/a/macros/georgetown.edu/s/AKfycbzF50PqbPCyZBQHEOoT0RGC-6wPkkQ5Rh52J6pdbVRo_vAgo9gHz4wW9KsAmj9IJUfPMQ/exec
+
+Currently only support Georgetown accounts.
+
 ## Teams
 
 Jacky Zhang, Josh Zhu, Charlie Han, Lianghui Yi
