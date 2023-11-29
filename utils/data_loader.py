@@ -19,6 +19,7 @@ def get_mail_dataframe_from_string(string):
 
 if __name__ == '__main__':
   # Test get_mail_dataframe function
-  mails = get_mail_dataframe_from_path('student_inbox_ly297.tsv')
+  mails = get_mail_dataframe_from_path('Yicheng.tsv')
   print(mails.head())
   print(mails['content'][0])
+  mails.to_csv('../data/temp.csv')

@@ -6,5 +6,5 @@ def classify_email(role, email):
     email: the email to be classified, which is an object.
     """
     canvasKeyword = "notifications@instructure.com"
-    if canvasKeyword in email['from'].lower(): return True
+    if canvasKeyword in email['sender'].lower(): return True
     return False
