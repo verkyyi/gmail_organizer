@@ -49,13 +49,22 @@ function getLabelObject(label_string) {
   return label;
 }
 
+
 function createLabelObj(label_string) {
   /**
    * Create label object.
    * label_string: label string
    * return: label object
    */
-  var label = GmailApp.createLabel('AUTO_' + label_string.toUpperCase());
+  // Using advanced Gmail service to create label which could support color customization.
+  // https://developers.google.com/apps-script/advanced/gmail
+  var color = generateLabelColorObj(label_string);
+  var label = Gmail.Users.Labels.create({
+    'labelListVisibility': 'labelShow',
+    'messageListVisibility': 'show',
+    'color': color,
+    'name': 'AUTO_' + label_string.toUpperCase(),
+  }, 'me');
   return label;
 }
 
