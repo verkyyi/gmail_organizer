@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>readme</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="README_files/libs/clipboard/clipboard.min.js"></script>
+<script src="README_files/libs/quarto-html/quarto.js"></script>
+<script src="README_files/libs/quarto-html/popper.min.js"></script>
+<script src="README_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="README_files/libs/quarto-html/anchor.min.js"></script>
+<link href="README_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="README_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="README_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="README_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="README_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="mail-organizer" class="level1">
+<h1>Mail Organizer</h1>
+<p>a mail organizer by auto labeling your emails specially designed for DSAN program students and professors.</p>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
+<p>Production version:</p>
+<p>https://script.google.com/a/macros/georgetown.edu/s/AKfycbzF50PqbPCyZBQHEOoT0RGC-6wPkkQ5Rh52J6pdbVRo_vAgo9gHz4wW9KsAmj9IJUfPMQ/exec</p>
+<p>Currently only support Georgetown accounts.</p>
+</section>
+<section id="teams" class="level2">
+<h2 class="anchored" data-anchor-id="teams">Teams</h2>
+<p>Jacky Zhang, Josh Zhu, Charlie Han, Lianghui Yi</p>
+</section>
+<section id="product-user-stories" class="level2">
+<h2 class="anchored" data-anchor-id="product-user-stories">Product User Stories</h2>
+<ul>
+<li><p>Single Installation: The product should be accessible with a one-time installation as either a browser extension or a Google apps extension. No further complicated setup should be required.</p></li>
+<li><p>Universal Benefit: The tool is designed to cater to the needs of both professors and students, enhancing their email management experience.</p></li>
+<li><p>Role Recognition: Implement automatic user role detection to personalize the experience without requiring manual user settings.</p></li>
+<li><p>Predefined Labels: Offer predefined labels upon installation tailored to the roles of students and professors and existing email data.</p></li>
+<li><p>Automatical Labeling: Labelling existing emails automatically upon first run and new emails as they arrive.</p></li>
+<li><p>(Deferred) Labels Extraction: Extract labels from existing emails to expand the predefined label pool.</p></li>
+<li><p>(Deferred) Custom Labels: Allow users to create their own labels which the system will automatically utilize in classifying emails.</p></li>
+<li><p>(Deferred) Label Expansion: Leverage GPT technology to expand existing labels to a bunch of representations, enhancing the system’s ability to classify emails effectively also provide privacy protection without sending any email content to GPT.</p></li>
+</ul>
+</section>
+<section id="milestones" class="level2">
+<h2 class="anchored" data-anchor-id="milestones">Milestones</h2>
+<ol type="1">
+<li>11/18 Product Target Confirmation: Define the specific goals and functionalities of the product.</li>
+<li>11/20 Mail Data Acquisition: Secure a dataset of emails for training and testing the classification algorithms.</li>
+<li>11/24 Software Development: Code the first version of the software.</li>
+<li>11/25 Testing Phase: Test the software for bugs, user experience, and performance.<br>
+</li>
+<li>11/28 Presentation Preparation: Finalize the presentation slides for the project.</li>
+<li>11/30 Presentation Date: Set a date for the project presentation.</li>
+<li>12/05 Final Delivery: Establish a deadline for the final software deliverable.</li>
+<li>12/05 Future Planning: Outline steps for future improvements and features.</li>
+</ol>
+</section>
+<section id="team-arrangements" class="level2">
+<h2 class="anchored" data-anchor-id="team-arrangements">Team Arrangements</h2>
+<ul>
+<li>Gmail Integration: Develop and test the integration with Gmail.
+<ul>
+<li>Verky</li>
+</ul></li>
+<li>Data Collection and Labeling: Collect and clean the dataset for training and testing the classification algorithms.
+<ul>
+<li>Josh</li>
+</ul></li>
+<li>Project Skeleton: Create the project skeleton and organize the codebase.
+<ul>
+<li>Verky</li>
+</ul></li>
+<li>Role Classification: Create an algorithm to classify users as students or professors.
+<ul>
+<li>Jacky</li>
+</ul></li>
+<li>Predefined Label Pools and Account Label Matching: Assign labels to account based on role and history.
+<ul>
+<li>Charlie</li>
+</ul></li>
+<li>Core Labels Classifier: Create a classifier to assign labels to emails.
+<ul>
+<li><strong>See Predefined Labels</strong></li>
+</ul></li>
+<li>Testing: Test the software for bugs, user experience, and performance.
+<ul>
+<li>Maybe Jacky</li>
+</ul></li>
+<li>Presentation: Prepare the presentation slides for the project.
+<ul>
+<li>Maybe Charlie</li>
+</ul></li>
+<li>Advanced Features: Consider the implementation of topic modeling for the creation of non-predefined labels as a future enhancement.
+<ul>
+<li>TBD</li>
+</ul></li>
+</ul>
+<p><strong><em>Note:</em></strong> <em>The team arrangement is subject to change as the project progresses. Team members can use <code>Issue</code> tools on Github to track or discuss detailed subtask.</em></p>
+</section>
+<section id="predefined-labels" class="level2">
+<h2 class="anchored" data-anchor-id="predefined-labels">Predefined Labels</h2>
+<ul>
+<li>Course-Related Emails: Automatically categorize course-related communications into a designated folder. For example, DSAN 5000, DSAN 5100, etc.
+<ul>
+<li>Josh</li>
+</ul></li>
+<li>Campus Events: Aggregate emails related to campus events into a separate folder for easy access.
+<ul>
+<li>Jacky</li>
+</ul></li>
+<li>HR: For professor and students with on-campus jobs, the system will automatically categorize HR-related emails into this label.
+<ul>
+<li>Charlie</li>
+</ul></li>
+<li>Zoom/Appointments: The system will automatically categorize emails related to Zoom meetings and appointments into this label.
+<ul>
+<li>Verky</li>
+</ul></li>
+<li>Co-faculty: The system will automatically categorize emails from co-workers into this label, which is only available for professors.
+<ul>
+<li>TBD</li>
+</ul></li>
+<li>NewsLetter: The system will automatically categorize emails from newsletters into this label.
+<ul>
+<li>TBD</li>
+</ul></li>
+<li>Professor: The system will automatically categorize emails from professors into this label. This label is only available for students.
+<ul>
+<li>TBD</li>
+</ul></li>
+<li>Current Students: The system will automatically categorize emails from current students into this label. This label is only available for professors.
+<ul>
+<li>TBD</li>
+</ul></li>
+<li>Prospective Students: The system will automatically categorize emails from prospective students into this label. This label is only available for professors.
+<ul>
+<li>TBD</li>
+</ul></li>
+</ul>
+</section>
+<section id="tech-implementation" class="level2">
+<h2 class="anchored" data-anchor-id="tech-implementation">Tech Implementation</h2>
+<p>This software mainly consists of three parts: Gmail integration, role classification, and labeling system.</p>
+<ul>
+<li>Google Apps Script(Javascript): The system will be implemented as a Google Apps Script to integrate with Gmail.</li>
+<li>Mail Classification Service(Python): The system will utilize a classification service to classify emails into predefined labels. The service will be implemented in Python.</li>
+<li>Role Classification Model(Python): The system will utilize a machine learning model to classify users as students or professors. The model will be implemented in Python.</li>
+<li>Database: The system will utilize a database to store the result of the role classification model. We might use the feature of Google Apps Script to store the result in the cache.
+<ul>
+<li>Properties Service: https://developers.google.com/apps-script/reference/properties/properties-service (Maximum cache retention time is 6 months)</li>
+</ul></li>
+</ul>
+<p><em>Note: To avoid using labels already used by users, we will prefix all auto-generated labels with <code>Auto-</code>. For example, <code>Auto-DSAN 5000</code>. Also by doing this, we only need to store the role within property service.</em></p>
+<p>Workflow:</p>
+<ol type="1">
+<li>The system will be deployed as a Google Apps Script.</li>
+<li>The system will be triggered periodically to label new emails.</li>
+<li>During each run, the system will first classify users as students or professors by the role classification model and assign corresponding labels to their accounts. To save future computation, the system will cache the result in the database. We might use the feature of Google Apps Script to store the result in the cache.</li>
+<li>The system will then classify emails into predefined labels by the classification service. The service will utilize the cached result to classify emails. During the process, besides the mail itself, the script will also pass predefined labels and account role labels to the service. The service will utilize the predefined labels and account labels to classify emails. Also to avoid repeated classification on the same mail, the system will cache the current runtime timestamp and the mail id in the database. The service will check the cache before classifying the mail.</li>
+<li>The system will then add labels to the mail.</li>
+</ol>
+<section id="deployment-and-how-to-use" class="level3">
+<h3 class="anchored" data-anchor-id="deployment-and-how-to-use">Deployment and How to Use</h3>
+<p>In our first version of the software, we will deploy the system as a Google Apps Script.</p>
+<p><strong>Frontend</strong></p>
+<section id="possible-solution-shared-script" class="level4">
+<h4 class="anchored" data-anchor-id="possible-solution-shared-script">Possible Solution: Shared Script</h4>
+<p>We will share the script to all users within the Georgetown domain. Now users within this domain can copy the script to their own Google Drive and setup a trigger to run the script periodically. Since the execution of the script needs some computing resources, we need to confirm the whole proces.</p>
+<p><strong>As to demo as soon as possible, we will use this solution during our presentation.</strong></p>
+<p>Complexity: Low</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./readme_imgs/georgetown_access.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Alt text</figcaption>
+</figure>
+</div>
+</section>
+<section id="possible-solution-internal-webapps" class="level4">
+<h4 class="anchored" data-anchor-id="possible-solution-internal-webapps">Possible Solution: Internal Webapps</h4>
+<p>We will deploy the system as a webapp within the Georgetown domain. Now users within this domain can access the webapp and run the script to label their mail.</p>
+<p>We need to implement the scheduling function to run the script periodically, which is included by Google Apps Script. We may reuse this feature from Google Apps Script, or else we have to implement it by ourselves.</p>
+<p>Complexity: Medium</p>
+</section>
+<section id="possible-solution-worskpace-add-on-or-chrome-extension" class="level4">
+<h4 class="anchored" data-anchor-id="possible-solution-worskpace-add-on-or-chrome-extension">Possible Solution: Worskpace Add-on or Chrome Extension</h4>
+<p>We will deploy the system as a Workspace Add-on or Chrome Extension. Now users can install the add-on or extension and run the script to label their mail.</p>
+<p>Complexity: High</p>
+<p><strong>Backend</strong></p>
+<p>For the python classification service, we will deploy it as a Google Cloud Function. The function will be triggered by the Google Apps Script.</p>
+<p>To be efficient, we won’t use any database to store the result of the classification service. Instead, we will use the feature of Google Apps Script to store the result in the cache.</p>
+<p>And directly use the cache to add labels to the mail.</p>
+</section>
+</section>
+</section>
+<section id="dataset-format-sample" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-format-sample">DataSet Format Sample</h2>
+<p>All exported mail should be stored as tsv file for better analysis.</p>
+<section id="export-script" class="level3">
+<h3 class="anchored" data-anchor-id="export-script">Export Script</h3>
+<p>Should provide a Apps Script to export all mail in a specific label to a tsv file.</p>
+<p>Apps Script:</p>
+<p>https://script.google.com/u/1/home/projects/1s55R9e9Qb6pLRTqyRH4oaDmMeM2mDYsRIfBmZk1gxq0HhS3Y4dJeDtmf</p>
+<p>The above script is currently available for all users within the Georgetown domain. It will export all mail in the <code>Course</code> label to a tsv file.</p>
+<p>You can find the exported filed download url in the log of the script.</p>
+<section id="steps" class="level4">
+<h4 class="anchored" data-anchor-id="steps">Steps</h4>
+<ol type="1">
+<li>Click the above apps script link.</li>
+<li>On the left <code>Files</code> pannel, choose <code>mail_export.gs</code> file. <img src="./readme_imgs/image-1.png" class="img-fluid" alt="Alt text"></li>
+<li>Close to the Debug button, click the <code>Select function</code> dropdown menu, choose <code>do_export</code>. <img src="./readme_imgs/image.png" class="img-fluid" alt="Alt text"></li>
+<li>Before running the script, Change parameters in the <code>do_export</code> function according to your need. <img src="./readme_imgs/parameters.png" class="img-fluid" alt="Alt text"></li>
+<li>Click the Run button to run the script. <img src="./readme_imgs/run.png" class="img-fluid" alt="Alt text"></li>
+<li>Check the log of the script, you will find the download url of the exported file. <img src="./readme_imgs/image-2.png" class="img-fluid" alt="Alt text"></li>
+</ol>
+</section>
+</section>
+<section id="mail-format" class="level3">
+<h3 class="anchored" data-anchor-id="mail-format">Mail Format</h3>
+<table class="table">
+<thead>
+<tr class="header">
+<th>—</th>
+<th>Account</th>
+<th>From</th>
+<th>To</th>
+<th>Subject</th>
+<th>Body</th>
+<th>Label</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>ly297@georgetown.edu</td>
+<td>Verky Yi <a href="mailto:ly297@georgetown.edu" class="email">ly297@georgetown.edu</a></td>
+<td>Charlie Han <a href="mailto:charlie@georgetown.edu" class="email">charlie@georgetown.edu</a></td>
+<td>DSAN 5000</td>
+<td>Hi, Charlie, I am Verky, a student in DSAN 5000. I am writing to ask about the final project. Can you give me some advice?</td>
+<td>Course</td>
+<td>Student</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="import-script" class="level3">
+<h3 class="anchored" data-anchor-id="import-script">Import Script</h3>
+<p>Should provide a Python script to import the exported tsv file to the database.</p>
+<p>Path: ./utils/data_loader.py</p>
+<p>This file provide a utility function to import the exported tsv file to a Pandas DataFrame.</p>
+<p>Since we encode the mail body in base64, the function will decode the body before return the DataFrame.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> utils.data_loader <span class="im">import</span> get_mail_dataframe</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># file_path is the path of the exported tsv file, you only need to include the file name and extension.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># default is to find that file within the data folder.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>file_path <span class="op">=</span> <span class="st">'student_inbox_ly297.tsv'</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>mails <span class="op">=</span> get_mail_dataframe(file_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="service-account" class="level3">
+<h3 class="anchored" data-anchor-id="service-account">Service Account</h3>
+<section id="app-engine-default-service-account" class="level4">
+<h4 class="anchored" data-anchor-id="app-engine-default-service-account">App Engine default service account</h4>
+<p>cryptic-skyline-399006@appspot.gserviceaccount.com</p>
+</section>
+<section id="compute-engine-default-service-account" class="level4">
+<h4 class="anchored" data-anchor-id="compute-engine-default-service-account">Compute Engine default service account</h4>
+<p>615698571364-compute@developer.gserviceaccount.com</p>
+</section>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
