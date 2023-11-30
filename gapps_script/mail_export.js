@@ -1,4 +1,4 @@
-function do_export() {
+function do_export(threads_limit_num = 100) {
   /**
    * A Apps Script export latest inbox mails to tsv in Google Drive
    * Accept latest_count as argument to limit the total output mails.
@@ -11,12 +11,10 @@ function do_export() {
    */
   predefinedLabels = [] // Default to empty list, which means export all threads without label filtering
   role = 'Student'
-  threads_limit_num = 100
   file_id = export_mails_to_tsv(threads_limit_num, predefinedLabels, role)
-  // get download url
-  file = DriveApp.getFileById(file_id)
-  download_url = file.getDownloadUrl()
-  return [file_id, download_url];
+  // get drive page url
+  const browser_url = 'https://drive.google.com/open?id=' + file_id;
+  return [file_id, browser_url];
 }
 
 function write_tsv_to_drive(tsv_string = 'Test'){
