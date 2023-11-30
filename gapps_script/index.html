@@ -40,6 +40,26 @@
         var div = document.getElementById('output');
         div.innerHTML = `<p>Error: ${error}</p>`;
       }
+      function do_export(){
+        // Change Button to Disable
+        var btn = document.getElementById('export_btn');
+        btn.value = 'Exporting';
+        btn.disabled = true;
+        // Get thread limit
+        var thread_limit = document.getElementById('thread_limit').value;
+        // Change to int of thread limit
+        thread_limit = parseInt(thread_limit);
+        google.script.run.withSuccessHandler(function(res){
+          var div = document.getElementById('export_output');
+          div.innerHTML = `<p>Mail exported.</p>`;
+          div.innerHTML += `<p>File Url: ${res[1]}</p>`;
+          btn.value = 'Exported';
+        }).withFailureHandler(function(error){
+          var div = document.getElementById('export_output');
+          div.innerHTML = `<p>Error: ${error}</p>`;
+          btn.disabled = false;
+        }).do_export(thread_limit);
+      }
       google.script.run.withSuccessHandler(onSuccess)
                        .withFailureHandler(onFailure)
                        .getOrCreateUserConfig();
@@ -87,6 +107,12 @@
           thisObj.value = 'Disable Hourly Run';
         }).withUserObject(this).switchTrigger()" />
       <? } ?>
+    </div>
+    <div id="export_pannel" class="output-container">
+      <!--Input box for thread limit count which should be a integer-->
+      <input id="thread_limit" type = "text" placeholder="Thread Limit" value="100"/>
+      <input id="export_btn" type="button" value="Export Email" onclick="do_export()"/>
+      <div id="export_output"></div>
     </div>
     <div id ="support"  class="output-container">
       <p>For support or contribute, please contact <a href="mailto:ly297@georgetown.edu">this address</a></p>

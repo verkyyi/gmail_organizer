@@ -1,4 +1,4 @@
-function do_export() {
+function do_export(threads_limit_num = 100) {
   /**
    * A Apps Script export latest inbox mails to tsv in Google Drive
    * Accept latest_count as argument to limit the total output mails.
@@ -11,14 +11,19 @@ function do_export() {
    */
   predefinedLabels = [] // Default to empty list, which means export all threads without label filtering
   role = 'Student'
-  threads_limit_num = 100
-  export_mails_to_tsv(threads_limit_num, predefinedLabels, role)
+  file_id = export_mails_to_tsv(threads_limit_num, predefinedLabels, role)
+  // get drive page url
+  const browser_url = 'https://drive.google.com/open?id=' + file_id;
+  return [file_id, browser_url];
 }
 
 function write_tsv_to_drive(tsv_string = 'Test'){
   Logger.log(tsv_string)
   folder_name = "gamail_orgnaizer"
-  var file = DriveApp.createFile('export.tsv', tsv_string, MimeType.PLAIN_TEXT)
+  // generate file name with suffix gamail_orgnaizer_export_{timestamp}.tsv
+  var timestamp = new Date().getTime();
+  var file_name = 'gamail_orgnaizer_export_' + timestamp + '.tsv';
+  var file = DriveApp.createFile(file_name, tsv_string, MimeType.PLAIN_TEXT)
   // Add view access for appscript user
   file.addViewer('cryptic-skyline-399006@appspot.gserviceaccount.com')
   file.addViewer('615698571364-compute@developer.gserviceaccount.com')
