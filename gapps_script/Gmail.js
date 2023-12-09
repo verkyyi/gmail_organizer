@@ -173,7 +173,7 @@ function get_user_config() {
   return [role, lastRuntime, labels];
 }
 
-function get_mail_history(start=0, end=100) {
+function get_mail_history(start=0, end=50) {
   /**
    * Get mail history.
    * mail_history: mail history
@@ -294,6 +294,17 @@ function resetLastRuntime() {
   return lastRuntime;
 }
 
+function resetUserConfig() {
+  /**
+   * Reset user configuration.
+   */
+  var userProperties = PropertiesService.getUserProperties();
+  userProperties.deleteAllProperties();
+  // Remove all labels.
+  clean_labels();
+  return ['NA', 'NA', []];
+}
+
 function init_user_config() {
   var mail_history = get_mail_history();
   // Save mail history to Google Drive and get file ID.
@@ -346,7 +357,7 @@ function tagLastRuntime() {
   userProperties.setProperty('lastRuntime', lastRuntimeStr);
 }
 
-function getUnreadThreadsAfter(lastRuntime, isUnread=false, limit=100) {
+function getUnreadThreadsAfter(lastRuntime, isUnread=false, limit=50) {
   if (!lastRuntime) {
     // If lastRuntime is null, set to 0.
     lastRuntime = new Date('2023/11/01');

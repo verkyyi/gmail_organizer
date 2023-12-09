@@ -34,12 +34,47 @@
         var div = document.getElementById('output');
         div.innerHTML = `<p><strong>Role:</strong> ${role}</p>
                          <p><strong>Last Runtime:</strong> ${lastRuntime}</p>
-                         <p><strong>Assigned Label Pools:</strong> ${labels}</p>`;
+                         <p><strong>Assigned Label Pools:</strong> ${labels}</p>
+                         <input id = "reset_btn" type="button" value="Reset User Config" onclick="resetUserConfig()"/>
+                         <input id = "label_btn" type="button" value="Do Labling" onclick="doLabeling()"/>`;
+        // Labeling                 
+      }
+      function doLabeling(){
+        google.script.run.withSuccessHandler(function(label_res) {
+          var div = document.getElementById('labeling_output');
+          div.innerHTML = `<p>Labeling complete for ${label_res.length}.</p>`;
+          for (var i = 0; i < label_res.length; i++) {
+            var label = label_res[i];
+            const messageId = label[0]
+            const labels = label[1] // array of labels
+            div.innerHTML += `<p>Message Id: ${messageId}<br>Labels: ${labels}</p>`;
+          }
+        }).withFailureHandler(function(error) {
+          var div = document.getElementById('labeling_output');
+          div.innerHTML = `<p>Error: ${error}</p>`;
+        }).autoLabeler();
+      }
+      function resetUserConfig(){
+        // Disable reset user config btn
+        var btn = document.getElementById('reset_btn');
+        btn.disabled = true;
+        btn.value = 'Resetting';
+        // Reset user config
+        google.script.run.withSuccessHandler(function(res){
+          onSuccess(res);
+          btn.disabled = false;
+        }).withFailureHandler(function(error){
+          var div = document.getElementById('output');
+          div.innerHTML = `<p>Error: ${error}</p>`;
+        }).resetUserConfig();
       }
       function onFailure(error) {
         var div = document.getElementById('output');
         div.innerHTML = `<p>Error: ${error}</p>`;
       }
+      google.script.run.withSuccessHandler(onSuccess)
+                       .withFailureHandler(onFailure)
+                       .getOrCreateUserConfig();      
       function do_export(){
         // Change Button to Disable
         var btn = document.getElementById('export_btn');
@@ -52,7 +87,7 @@
         google.script.run.withSuccessHandler(function(res){
           var div = document.getElementById('export_output');
           div.innerHTML = `<p>Mail exported.</p>`;
-          div.innerHTML += `<p>File Url: ${res[1]}</p>`;
+          div.innerHTML += `<p><a href="${res[1]}" target="_blank">File Url: ${res[1]}</a></p>`;
           btn.value = 'Exported';
         }).withFailureHandler(function(error){
           var div = document.getElementById('export_output');
@@ -60,29 +95,13 @@
           btn.disabled = false;
         }).do_export(thread_limit);
       }
-      google.script.run.withSuccessHandler(onSuccess)
-                       .withFailureHandler(onFailure)
-                       .getOrCreateUserConfig();
-      google.script.run.withSuccessHandler(function(label_res) {
-        var div = document.getElementById('labeling_output');
-        div.innerHTML = `<p>Labeling complete for ${label_res.length}.</p>`;
-        for (var i = 0; i < label_res.length; i++) {
-          var label = label_res[i];
-          const messageId = label[0]
-          const labels = label[1] // array of labels
-          div.innerHTML += `<p>Message Id: ${messageId}<br>Labels: ${labels}</p>`;
-        }
-      }).withFailureHandler(function(error) {
-        var div = document.getElementById('labeling_output');
-        div.innerHTML = `<p>Error: ${error}</p>`;
-      }).autoLabeler();
     </script>
     <link href="https://ssl.gstatic.com/docs/script/css/add-ons.css" rel="stylesheet">
   </head>
   <body>
     <h1>Gmail Organizer Debug Interface</h1>
     <div id="account_info"> 
-      <?= Session.getActiveUser().getEmail() ?>
+      Current User: <?= Session.getActiveUser().getEmail() ?>
     </div>
     <div id="output" class="output-container">
       Config loading...
