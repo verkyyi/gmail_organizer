@@ -3,27 +3,6 @@ import pandas as pd
 A module that contains functions to classify the role of a user.
 It takes in a mail history and returns a role.
 '''
-def check_if_student(mail_history:pd.DataFrame)->bool:
-  '''
-  @param mail_history: the mail history of the user
-  @return: True if the user is a student, False otherwise
-  '''
-  # If there is one mail existing in the mail hisotry from canvas, the content contains
-  # 'Your assignment .* has been graded.', then the user is a student.
-  if mail_history[mail_history['sender'].str.contains('notifications@instructure.com')].shape[0] > 0:
-    # Get all the mail content from canvas and concatenate them into a string
-    canvas_mail_content = ' '.join(mail_history[mail_history['sender'].str.contains('notifications@instructure.com')]['content'])
-    # If the string contains 'Your assignment .* has been graded.', then the user is a student
-    if 'Your assignment' in canvas_mail_content and 'has been graded.' in canvas_mail_content:
-      return True
-  return False
-
-def check_if_professor(mail_history:pd.DataFrame)->bool:
-  '''
-  @param mail_history: the mail history of the user
-  @return: True if the user is a professor, False otherwise
-  '''
-  return False
 
 def classify_role(mail_history:pd.DataFrame)->str:
   '''
@@ -32,8 +11,14 @@ def classify_role(mail_history:pd.DataFrame)->str:
   '''
   # If there is one mail existing in the mail hisotry from canvas, the content contains
   # 'Your assignment .* has been graded.', then the user is a student.
-  if check_if_professor(mail_history):
-      return 'professor'
-  if check_if_student(mail_history):
-      return 'student'
-  return 'student'
+  cofaculty_Email = ['Purna.Gamage@georgetown.edu','heather.connor@georgetown.edu','qh86@georgetown.edu','jh2343@georgetown.edu','jj1088@georgetown.edu','ashley.stowe@georgetown.edu','np617@georgetown.edu','tva7@georgetown.edu']
+
+  cofaculty_Name = ['Amit Arora','Abhijit Dasgupta','Benjamin Houghton','Chris Larson','Anderson Monken','Nate Strawn','Marck Vaisman','Irina Vayndiner','Nima Zahadat']
+
+  for length in range(len(mail_history)):
+      if mail_history['account_name'].iloc[length] in cofaculty_Name or mail_history['account_mail_address'].iloc[length] in cofaculty_Email:
+          mail_history['account_role'].iloc[length] = 'professor'
+      else:
+          mail_history['account_role'].iloc[length] = 'student'
+  
+  return mail_history
