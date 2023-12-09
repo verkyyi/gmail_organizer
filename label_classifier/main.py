@@ -21,10 +21,13 @@ def hello_http(request):
     if request_json and 'mail' in request_json:
         mail = request_json['mail']
     else:
+        # A sample mail format
         mail = {
-            'subject': 'test',
-            'body': 'test',
-            'from': 'test',
+        'from': '',
+        'to': 'me',
+        'subject': '',
+        'body': '',
+        'self_address': '',
         }
     if request_json and 'labels_pool' in request_json:
         labels_pool = request_json['labels_pool']
