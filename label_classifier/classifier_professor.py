@@ -6,11 +6,11 @@ def classify_email(role, email):
     email: the email to be classified, which is a panda row.
     """
     # If role is student, and to contains self email, then label as professor 
-    if role == 'student' and email['self_address'] in email['to'].lower():
+    if role == 'student':
         # content contains 'hi professor' or 'prof', then label as professor
-        if 'hi professor' in email['body'].lower():
+        if 'hi professor' in email['content'].lower():
             return True
         # content contains 'dear professor' or 'dear prof', then label as professor
-        if 'dear professor' in email['body'].lower() or 'dear prof' in email['body'].lower():
+        if 'dear prof' in email['content'].lower():
             return True
     return False

@@ -9,6 +9,6 @@ def classify_email(role, email):
     if 'newsletter' in email['subject'].lower():
         return True
     # if content contains the word 'unsubscribe', then it is a newsletter.
-    if 'unsubscribe' in email['body'].lower():
+    if 'unsubscribe' in email['content'].lower():
         return True
     return False

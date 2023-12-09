@@ -6,5 +6,5 @@ def classify_email(role, email):
     email: the email to be classified, which is a panda row.
     """
     zoomKeywords = "https://georgetown.zoom.us/"
-    if zoomKeywords in email['body'].lower(): return True
+    if zoomKeywords in email['content'].lower(): return True
     return False
