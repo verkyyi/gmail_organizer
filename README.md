@@ -6,7 +6,7 @@ a mail organizer by auto labeling your emails specially designed for DSAN progra
 
 Production version:
 
-https://script.google.com/a/macros/georgetown.edu/s/AKfycbzF50PqbPCyZBQHEOoT0RGC-6wPkkQ5Rh52J6pdbVRo_vAgo9gHz4wW9KsAmj9IJUfPMQ/exec
+https://www.georgetownorganizer.com/
 
 Currently only support Georgetown accounts.
 
